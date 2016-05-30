@@ -1,7 +1,5 @@
 <div class="container">
-  <h2>My Todos</h2>
-
-  <!-- Add todo -->
+	<h2>Select participants</h2>
   
   <form role="form" ng-submit="addTodo()">
     <div class="row">
@@ -16,7 +14,7 @@
   </form>
 
 
-  <!-- Todo list -->
+  Todo list
   <div ui-sortable ng-model="todos">
     <p class="input-group" ng-repeat="todo in todos" style="padding:5px 10px;cursor:move;">
       <input class="form-control" ng-model="todo" type="text"> 
@@ -27,5 +25,3 @@
   </div>
   
 </div>
-
-

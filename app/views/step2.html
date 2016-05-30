@@ -1,0 +1,22 @@
+<div class="container">
+<form class="form">
+	<div class="form-group">
+      <label for="date" class="control-label">Date</label>
+       <pre>Selected date is: <em>{{dt | date:'fullDate' }}</em></pre>
+
+      <div style="display:inline-block; min-height:290px;">
+        <uib-datepicker id="date" ng-model="dt" class="well well-sm" datepicker-options="options"></uib-datepicker>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="beginHour" class="control-label">Begin Hour</label>
+       <uib-timepicker id="beginHour" ng-model="startTime" ng-change="changed()"  ></uib-timepicker>
+    </div>
+
+    <div class="form-group">
+      <label for="beginHour" class="control-label">End Hour</label>
+       <uib-timepicker id="beginHour" ng-model="endTime" ng-change="changed()"  ></uib-timepicker>
+    </div>
+</form>
+</div>

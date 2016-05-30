@@ -16,19 +16,29 @@ angular
     'ngRoute',
     'ngSanitize',
     'ngTouch',
-    'ui.sortable'
+    'ui.sortable',
+    'LocalStorageModule',
+    'ui.bootstrap'
   ])
+  .config(['localStorageServiceProvider', function(localStorageServiceProvider){
+    localStorageServiceProvider.setPrefix('ls');
+  }])
   .config(function ($routeProvider) {
     $routeProvider
       .when('/', {
-        templateUrl: 'views/main.html',
-        controller: 'MainCtrl',
-        controllerAs: 'main'
+        templateUrl: 'views/step1.html',
+        controller: 'Step1Ctrl',
+        controllerAs: 'step1'
       })
-      .when('/about', {
-        templateUrl: 'views/about.html',
-        controller: 'AboutCtrl',
-        controllerAs: 'about'
+      .when('/step2', {
+        templateUrl: 'views/step2.html',
+        controller: 'Step2Ctrl',
+        controllerAs: 'step2'
+      })
+      .when('/step3', {
+        templateUrl: 'views/step3.html',
+        controller: 'Step3Ctrl',
+        controllerAs: 'step3'
       })
       .otherwise({
         redirectTo: '/'
