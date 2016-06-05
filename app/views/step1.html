@@ -4,59 +4,29 @@
   <form role="form" >
     <div class="form-group">
       <label for="topic" class="control-label">Topic</label>
-        <input type="text" name="" class="form-control" id="topic" placeholder="Set the meeting target">
+        <input type="text" ng-model="meeting.topic" class="form-control" id="topic" placeholder="Set the meeting target">
     </div>
     <div class="form-group">
       <label for="location" class="control-label">Where (optional)</label>
-      <input type="text" name="" class="form-control" id="location" placeholder="Set the location">
+      <input type="text" ng-model="meeting.where" class="form-control" id="location" placeholder="Set the location">
     </div>
     <div class="form-group">
       <label for="description" class="control-label">Description (optional)</label>
-      <input type="text" name="" class="form-control" 
+      <input type="text" ng-model="meeting.description" class="form-control" 
       id="description" placeholder="Tell the participants about the meeting">
     </div>
     <div class="form-group">
       <label for="name" class="control-label">Your Name</label>
-      <input type="text" name="" class="form-control" 
-      id="name" >
+      <input type="text" ng-model="meeting.name" class="form-control" 
+      id="name" placeholder="Your name">
     </div>
     <div class="form-group">
-      <label for="email" class="control-label">Your Email</label>
-      <input type="email" name="" class="form-control" 
-      id="email" >
+      <label for="email" class="control-label">Email</label>
+      <input type="text" ng-model="meeting.email" class="form-control" 
+      id="email" placeholder="Your email address">
     </div>
     
-    
   </form>
-
-
-
-  <!-- <h2>My Todos</h2> -->
-
-  <!-- Add todo -->
-  
-  <!-- <form role="form" ng-submit="addTodo()">
-    <div class="row">
-      <div class="input-group">
-        <input type="text" placeholder="what need to be done?" ng-model="todo" class="form-contorl" >
-          <span class="input-group-btn">
-            <input type="submit" class="btn btn-primary" value="Add">
-          </span>
-        </input>
-      </div>
-    </div>
-  </form>
-
-
-  Todo list
-  <div ui-sortable ng-model="todos">
-    <p class="input-group" ng-repeat="todo in todos" style="padding:5px 10px;cursor:move;">
-      <input class="form-control" ng-model="todo" type="text"> 
-      <span class="input-group-btn">
-        <button class="btn btn-danger" ng-click="removeTodo($index)" aria-label="Remove">X</button>    
-      </span>
-    </p>
-  </div> -->
   
 </div>
 

@@ -1,22 +1,41 @@
 <div class="container">
-<form class="form">
-	<div class="form-group">
-      <label for="date" class="control-label">Date</label>
-       <pre>Selected date is: <em>{{dt | date:'fullDate' }}</em></pre>
+  <div class="row">
 
-      <div style="display:inline-block; min-height:290px;">
-        <uib-datepicker id="date" ng-model="dt" class="well well-sm" datepicker-options="options"></uib-datepicker>
+    <div class="col-sm-6">
+      <form class="form">
+        <div class="form-group">
+          <label for="date" class="control-label">Date</label>
+          <pre>Selected date is: <em>{{datepicker | date:'fullDate' }}</em></pre>
+
+          <div style="display:inline-block; min-height:290px;">
+            <uib-datepicker id="date" ng-model="datepicker" class="well well-sm" datepicker-options="datepickerOptions"></uib-datepicker>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="beginHour" class="control-label">Metting start at </label>
+          <uib-timepicker id="beginHour" ng-model="startTime" ng-change="changed()"  ></uib-timepicker>
+          <label class="contorl-label" > For </label>
+          <input type="number" name="" ng-model="howLong"></input>
+          <label class="contorl-label" > hours </label>
+        </div>
+
+        <div class="form-group">
+          <input type="button" class="btn btn-primary" ng-click="addDate()" value="Add" name="">
+        </div>
+      </form>
+    </div>
+    
+    <div class="col-sm-6">
+      <label  class="control-label">Date List</label>
+      <div ui-sortable ng-model="meeting.dates">
+        <p class="input-group" ng-repeat="dateItem in meeting.dates" style="padding:5px 10px;cursor:move;">
+          <input class="form-control" value="{{dateItem.dateCh}} - {{dateItem.hourCh}} - for {{dateItem.howLongCh}} hours" type="text"> 
+          <span class="input-group-btn">
+            <button class="btn btn-danger" ng-click="removeTodo($index)" aria-label="Remove">X</button>    
+          </span>
+        </p>
       </div>
     </div>
-
-    <div class="form-group">
-      <label for="beginHour" class="control-label">Begin Hour</label>
-       <uib-timepicker id="beginHour" ng-model="startTime" ng-change="changed()"  ></uib-timepicker>
-    </div>
-
-    <div class="form-group">
-      <label for="beginHour" class="control-label">End Hour</label>
-       <uib-timepicker id="beginHour" ng-model="endTime" ng-change="changed()"  ></uib-timepicker>
-    </div>
-</form>
+  </div>
 </div>

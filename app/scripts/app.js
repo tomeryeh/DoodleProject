@@ -8,7 +8,7 @@
  *
  * Main module of the application.
  */
-angular
+var app = angular
   .module('doodleApp', [
     'ngAnimate',
     'ngCookies',
@@ -27,20 +27,24 @@ angular
     $routeProvider
       .when('/', {
         templateUrl: 'views/step1.html',
-        controller: 'Step1Ctrl',
-        controllerAs: 'step1'
+        controller: 'FormCtrl'
+        
       })
       .when('/step2', {
         templateUrl: 'views/step2.html',
-        controller: 'Step2Ctrl',
-        controllerAs: 'step2'
+        controller: 'FormCtrl'
+        
       })
       .when('/step3', {
         templateUrl: 'views/step3.html',
-        controller: 'Step3Ctrl',
-        controllerAs: 'step3'
+        controller: 'FormCtrl'
+      
       })
       .otherwise({
         redirectTo: '/'
       });
   });
+
+app.factory('wizardData',function(){
+    return {};
+});
