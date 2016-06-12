@@ -18,7 +18,8 @@ var app = angular
     'ngTouch',
     'ui.sortable',
     'LocalStorageModule',
-    'ui.bootstrap'
+    'ui.bootstrap',
+    'firebase'
   ])
   .config(['localStorageServiceProvider', function(localStorageServiceProvider){
     localStorageServiceProvider.setPrefix('ls');
@@ -39,6 +40,14 @@ var app = angular
         templateUrl: 'views/step3.html',
         controller: 'FormCtrl'
       
+      })
+      .when('/summary', {
+        templateUrl: 'views/summary.html',
+        controller: 'FormCtrl'
+      })
+      .when('/chooseDates', {
+        templateUrl: 'views/chooseDates.html',
+        controller: 'FormCtrl'
       })
       .otherwise({
         redirectTo: '/'

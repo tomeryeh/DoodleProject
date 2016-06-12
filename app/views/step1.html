@@ -1,5 +1,5 @@
 <div class="container">
-  <h2>Let schedule a new meeting</h2>
+  <h4>Let schedule a new meeting {{datename}}</h4>
   <hr/>
   <form role="form" >
     <div class="form-group">
@@ -26,6 +26,7 @@
       id="email" placeholder="Your email address">
     </div>
     
+    <input type="button" ng-click="sendEmail()" value="Send Email" name="">
   </form>
   
 </div>

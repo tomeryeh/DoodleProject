@@ -8,13 +8,13 @@
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
     <!-- build:css(.) styles/vendor.css -->
     <!-- bower:css -->
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
     <!-- endbower -->
     <!-- endbuild -->
     <!-- build:css(.tmp) styles/main.css -->
-    <!-- <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" /> -->
-    
     <link rel="stylesheet" href="styles/main.css">
     <!-- endbuild -->
+    
   </head>
   <body ng-app="doodleApp">
     <!--[if lte IE 8]>
@@ -43,6 +43,8 @@
               <li ng-class="{ active: isActive('/')}"><a href="#/step1">Step1</a></li>
               <li ng-class="{ active: isActive('/step2')}"><a ng-href="#/step2">Step2</a></li>
               <li ng-class="{ active: isActive('/step3')}"><a ng-href="#/step3">Step3</a></li>
+              <li ng-class="{ active: isActive('/summary')}"><a ng-href="#/summary">Summary</a></li>
+              <li ng-class="{ active: isActive('/chooseDates')}"><a ng-href="#/chooseDates">ChooseDates</a></li>
             </ul>
           </div>
         </div>
@@ -55,7 +57,7 @@
 
     <div class="footer">
       <div class="container">
-        <p><span class="glyphicon glyphicon-heart"></span> from the Yeoman team</p>
+        <p><span class="glyphicon glyphicon-heart"></span> from the Snir team</p>
       </div>
     </div>
 
@@ -86,16 +88,36 @@
     <script src="bower_components/angular-ui-sortable/sortable.js"></script>
     <script src="bower_components/angular-local-storage/dist/angular-local-storage.js"></script>
     <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+    <script src="bower_components/firebase/firebase.js"></script>
+    <script src="bower_components/angularfire/dist/angularfire.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
+
+    <script>
+      // Initialize Firebase
+      var config = {
+        apiKey: "AIzaSyDdOa9vtEg2splJHiitX9AG539C8kv7wCU",
+        authDomain: "project-7335870999437412984.firebaseapp.com",
+        databaseURL: "https://project-7335870999437412984.firebaseio.com",
+        storageBucket: "project-7335870999437412984.appspot.com",
+      };
+      firebase.initializeApp(config);
+    </script>
+
+    <script type="text/javascript" src="https://cdn.emailjs.com/dist/email.min.js"></script>
+    <script type="text/javascript">
+      (function(){
+        emailjs.init("user_FZTnKaRtcX9q2tZoOxOh8");
+      })();
+    </script>
 
         <!-- build:js({.tmp,app}) scripts/scripts.js -->
         <script src="scripts/app.js"></script>
         <script src="scripts/controllers/formCtrl.js"></script>
-        <script src="scripts/controllers/step2.js"></script>
-        <script src="scripts/controllers/step3.js"></script>
         <script src="scripts/controllers/header.js"></script>
         <!-- endbuild -->
+
+        
 </body>
 </html>
 

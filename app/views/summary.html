@@ -1,0 +1,16 @@
+<div class="container" >
+	<h3>Summary</h3>
+	<p><label>Event topic : {{ meeting.topic }}</label></br></p>
+	<p><label>Participants : </label>
+	<ul>
+		<li ng-repeat="part in meeting.participants">{{ part.name }}</li>
+	</ul>
+	</p>
+	<p>
+	<label>Dates : </label>
+	<ul>
+		<li ng-repeat="date in meeting.dates">{{date.dateCh}} / {{date.hourCh}} / {{date.howLongCh}}</li>
+	</ul>
+	</p>
+	<p><button type="button" class="btn btn-success" ng-click="saveMeeting()">Save meeting</button></p>
+</div>

@@ -1,0 +1,22 @@
+<div class="container">
+	<h3>Choose the dates you can attend</h3>
+	<table class="table">
+    <thead>
+    <tr>
+        <th>Date</th>
+        <th>Hour</th>
+        <th>How long in hours</th>
+        <th>Can you attend ?</th>
+    </tr>
+    </thead>
+    <tbody>
+        <tr ng-repeat="date in meeting.dates" ng-class="{success: event.done}">
+            <td>{{date.dateCh}}</td>
+            <td>{{date.hourCh}}</td>
+            <td>{{date.howLongCh}}</td>
+            <td><input type="checkbox" name=""/></td>
+        </tr>
+    </tbody>
+	</table>
+	<p><button type="button" class="btn btn-success">Submit</button></p>
+</div>

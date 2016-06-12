@@ -32,7 +32,7 @@
         <p class="input-group" ng-repeat="dateItem in meeting.dates" style="padding:5px 10px;cursor:move;">
           <input class="form-control" value="{{dateItem.dateCh}} - {{dateItem.hourCh}} - for {{dateItem.howLongCh}} hours" type="text"> 
           <span class="input-group-btn">
-            <button class="btn btn-danger" ng-click="removeTodo($index)" aria-label="Remove">X</button>    
+            <button class="btn btn-danger" ng-click="removeDate($index)" aria-label="Remove">X</button>    
           </span>
         </p>
       </div>
