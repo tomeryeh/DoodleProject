@@ -49,6 +49,10 @@ var app = angular
         templateUrl: 'views/chooseDates.html',
         controller: 'FormCtrl'
       })
+      .when('/login', {
+            templateUrl: 'views/login.html',
+            controller: 'LoginCtrl'
+       })
       .otherwise({
         redirectTo: '/'
       });
