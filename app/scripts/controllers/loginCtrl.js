@@ -2,16 +2,30 @@
 
 angular.module('doodleApp')
   .controller('LoginCtrl', function ($scope,$firebaseAuth) {
-	 var ref = new Firebase("https://project-7335870999437412984.firebaseio.com");
-	  // create an instance of the authentication service
-	  var auth = $firebaseAuth(ref);
-	  // login with Facebook
-	  auth.$authWithOAuthPopup("facebook").then(function(authData) {
-	    console.log("Logged in as:", authData.uid);
-	  }).catch(function(error) {
-	    console.log("Authentication failed:", error);
-	  });
- 
+
+      $scope.signIn = function () {
+          var auth = $firebaseAuth();
+
+          $scope.firebaseUser = null;
+          $scope.error = null;
+
+          auth.$signInWithPopup('google').then(function (result) {
+              // This gives you a Google Access Token. You can use it to access the Google API.
+              var token = result.credential.idToken;
+              // The signed-in user info.
+              var user = result.user;
+          }).catch(function (error) {
+              // Handle Errors here.
+              var errorCode = error.code;
+              var errorMessage = error.message;
+              // The email of the user's account used.
+              var email = error.email;
+              // The firebase.auth.AuthCredential type that was used.
+              var credential = error.credential;
+              // ...
+          });
+      };
+
 
 
  });

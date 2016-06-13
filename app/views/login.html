@@ -1,0 +1,6 @@
+<div >
+    <button ng-click="signIn()">Sign In With Google</button>
+
+    <p ng-if="firebaseUser">Signed in user: <strong>{{ firebaseUser.uid }}</strong></p>
+    <p ng-if="error">Error: <strong>{{ error }}</strong></p>
+</div>
