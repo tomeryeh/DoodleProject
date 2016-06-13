@@ -1,9 +1,22 @@
 'use strict';
 
+/**
+ * @ngdoc function
+ * @name doodleApp.controller:MainCtrl
+ * @description
+ * # MainCtrl
+ * Controller of the doodleApp
+ */
 angular.module('doodleApp')
-  .controller('LoginCtrl', function ($scope,Auth,$location) {
-      
-      $scope.signIn = function () {
+  .controller('HeaderController', function ($scope, $location,Auth,loginUser) { 
+
+	$scope.auth = Auth;
+
+    $scope.isActive = function (viewLocation) { 
+        return viewLocation === $location.path();
+    };
+
+    $scope.signIn = function () {
           
           $scope.auth = Auth;
 
@@ -15,8 +28,7 @@ angular.module('doodleApp')
               var token = result.credential.idToken;
               // The signed-in user info.
               var user = result.user;
-
-              
+              $location.path('/step1');
           }).catch(function (error) {
               // Handle Errors here.
               var errorCode = error.code;
@@ -29,14 +41,23 @@ angular.module('doodleApp')
           });
       };
 
-      $scope.signOut = function(){
-        $scope.auth = Auth;
-        $scope.auth.signOut().then(function() {
-          $location.path('/');
-        // Sign-out successful.
-        }, function(error) {
-        // An error happened.
-        });
+	$scope.signOut = function(){
+		$scope.auth = Auth;
+        $scope.auth.$signOut();
       };
 
- });
+    // any time auth state changes, add the user data to scope
+    $scope.auth.$onAuthStateChanged(function(firebaseUser) {
+      $scope.firebaseUser = firebaseUser;
+
+	  loginUser = $scope.firebaseUser;
+
+       if (firebaseUser) {
+   		 console.log("Signed in as:", firebaseUser.uid);
+  		} else {
+  			 $location.path('/');
+    		console.log("Signed out");
+  		}
+    });
+});
+

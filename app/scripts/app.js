@@ -27,6 +27,11 @@ var app = angular
   .config(function ($routeProvider) {
     $routeProvider
       .when('/', {
+        templateUrl: 'views/logout.html',
+        controller: 'FormCtrl'
+        
+      })
+      .when('/step1', {
         templateUrl: 'views/step1.html',
         controller: 'FormCtrl'
         
@@ -58,6 +63,3 @@ var app = angular
       });
   });
 
-app.factory('wizardData',function(){
-    return {};
-});

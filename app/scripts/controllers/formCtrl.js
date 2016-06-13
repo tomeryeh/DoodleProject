@@ -8,10 +8,8 @@
  * Controller of the doodleApp
  */
 angular.module('doodleApp')
-  .controller('FormCtrl', function ($scope,localStorageService,wizardData,$firebaseObject,$firebaseArray) {
+  .controller('FormCtrl', function ($scope,localStorageService,wizardData,$firebaseObject,$firebaseArray,Auth) {
   	
-  
-
     $scope.datepickerOptions  = {
       initDate : new Date(),
       minDate : new Date(),
@@ -23,25 +21,26 @@ angular.module('doodleApp')
 
     $scope.init = function()
     {
-      //$scope.meeting = wizardData;
+      $scope.meeting = wizardData;
 
-      var ref = firebase.database().ref().child("meeting");
-      // download the data into a local object
-      var syncObject = $firebaseObject(ref);
-      // synchronize the object with a three-way data binding
-      // click on `index.html` above to see it used in the DOM!
-      syncObject.$bindTo($scope, "meeting");
+      // var ref = firebase.database().ref().child("meeting");
+      // // download the data into a local object
+      // var syncObject = $firebaseObject(ref);
+      // // synchronize the object with a three-way data binding
+      // // click on `index.html` above to see it used in the DOM!
+      // syncObject.$bindTo($scope, "meeting");
 
     };
     
 
     $scope.saveMeeting = function(){
-      $scope.meetings = $scope.meetings || {};
-      var ref = firebase.database().ref();
-      $scope.meetings = $firebaseObject(ref.child('meetings'));
-      
-      $scope.meetings.push($scope.meeting);  
-      $scope.meetings.$save();  
+      var currentUser = Auth.$getAuth();
+
+      var ref = firebase.database().ref('meetings/'+ currentUser.uid);
+      var obj = $firebaseObject(ref);
+      obj.data = $scope.meeting;
+      obj.$save();
+
     }
     // $scope.$watch('todos', function () {
     //   localStorageService.set('todos', $scope.todos);
