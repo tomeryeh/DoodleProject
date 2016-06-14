@@ -47,9 +47,6 @@ angular.module('doodleApp')
       obj.$save();
 
     }
-    // $scope.$watch('todos', function () {
-    //   localStorageService.set('todos', $scope.todos);
-    // }, true);
 
 // Step 3
     $scope.addParticipant = function(){
