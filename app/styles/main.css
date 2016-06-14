@@ -65,6 +65,10 @@ body {
     max-width: 730px;
   }
 
+  .blue{
+    color:#06d;
+  }
+
   /* Remove the padding we set earlier */
   .header,
   .marketing,
