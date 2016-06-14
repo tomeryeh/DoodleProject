@@ -10,13 +10,14 @@
     </tr>
     </thead>
     <tbody>
-        <tr ng-repeat="date in meeting.dates" ng-class="{success: event.done}">
+        <tr ng-repeat="date in dates" ng-class="{success: event.done}">
             <td>{{date.dateCh}}</td>
             <td>{{date.hourCh}}</td>
             <td>{{date.howLongCh}}</td>
-            <td><input type="checkbox" name=""/></td>
+            <td><input type="checkbox" ng-model="date.isMark" name=""/></td>
         </tr>
     </tbody>
 	</table>
-	<p><button type="button" class="btn btn-success">Submit</button></p>
+	<p ng-hide="firebaseUser"><span>You must log-in in order to make your picks</span></p>
+    <p ng-show="firebaseUser"><button type="button" ng-click="savePick()" class="btn btn-success">Submit</button></p>
 </div>

@@ -28,7 +28,9 @@ angular.module('doodleApp')
               var token = result.credential.idToken;
               // The signed-in user info.
               var user = result.user;
-              $location.path('/step1');
+              // if ($location.path() != 'chooseDates'){
+              //   $location.path('/step1');
+              // }
           }).catch(function (error) {
               // Handle Errors here.
               var errorCode = error.code;

@@ -8,7 +8,7 @@
  * Controller of the doodleApp
  */
 angular.module('doodleApp')
-  .controller('FormCtrl', function ($scope,localStorageService,wizardData,$firebaseObject,$firebaseArray,Auth) {
+  .controller('FormCtrl', function ($scope,localStorageService,$firebaseObject,Auth,$location) {
   	
     $scope.datepickerOptions  = {
       initDate : new Date(),
@@ -46,6 +46,9 @@ angular.module('doodleApp')
       obj.data = $scope.meeting;
       obj.$save();
 
+      var urlAfterSplit = $location.absUrl().split('/');
+      urlAfterSplit[urlAfterSplit.length - 1] = 'chooseDates';
+      $scope.url = urlAfterSplit.join('/') + "?event=" + currentUser.uid;
     }
 
 // Step 3
@@ -71,7 +74,9 @@ angular.module('doodleApp')
       {
         dateCh : $scope.datepicker.toLocaleDateString(),
         hourCh : $scope.startTime.toLocaleTimeString(),
-        howLongCh : $scope.howLong
+        howLongCh : $scope.howLong,
+        names:[],
+        isMark : false
       };
       $scope.meeting.dates = $scope.meeting.dates || [];
       $scope.meeting.dates.push(newDate);

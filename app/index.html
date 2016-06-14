@@ -48,13 +48,13 @@
               <li ng-class="{ active: isActive('/step2')}"><a ng-href="#/step2">Step 2</a></li>
               <li ng-class="{ active: isActive('/step3')}"><a ng-href="#/step3">Step 3</a></li>
               <li ng-class="{ active: isActive('/summary')}"><a ng-href="#/summary">Summary</a></li>
-              <li ng-class="{ active: isActive('/chooseDates')}"><a ng-href="#/chooseDates">Choose Dates</a></li>
+             <!--  <li ng-class="{ active: isActive('/chooseDates')}"><a ng-href="#/chooseDates">Choose Dates</a></li> -->
 
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li ng-show="firebaseUser"><a href="#">Hi, {{ firebaseUser.displayName }}</a></li>
-                <li ng-hide="firebaseUser"><a href="#" ng-click="signIn()" ><span class="glyphicon glyphicon-log-in"></span> Login </a></li>
-                <li ng-show="firebaseUser"><a href="#" ng-click="signOut()"><span class="glyphicon glyphicon-log-out"></span> Logout </a></li>
+                <li ng-hide="firebaseUser"><a href="" ng-click="signIn()" ><span class="glyphicon glyphicon-log-in"></span> Login </a></li>
+                <li ng-show="firebaseUser"><a href="" ng-click="signOut()"><span class="glyphicon glyphicon-log-out"></span> Logout </a></li>
             </ul>
 
           </div>
@@ -130,7 +130,6 @@
         <script src="scripts/factories.js"></script>
         <script src="scripts/controllers/formCtrl.js"></script>
         <script src="scripts/controllers/headerCtrl.js"></script>
-        <script src="scripts/controllers/loginCtrl.js"></script>
         <script src="scripts/controllers/chooseDatesCtrl.js"></script>
         <!-- endbuild -->
 
