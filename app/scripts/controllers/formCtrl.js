@@ -21,7 +21,12 @@ angular.module('doodleApp')
 
     $scope.init = function()
     {
-      $scope.meeting = wizardData;
+        $scope.meeting = localStorageService.get('meeting');
+
+        $scope.$watch('meeting', function () {
+            localStorageService.set('meeting', $scope.meeting);
+        }, true);
+        //$scope.meeting = wizardData;
 
       // var ref = firebase.database().ref().child("meeting");
       // // download the data into a local object

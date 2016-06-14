@@ -24,7 +24,6 @@
     <!-- Add your site or application content here -->
     <div class="header" ng-controller="HeaderController">
       <div class="navbar navbar-default" role="navigation">
-        <img src="images/logo1.JPG" alt="logo"style="float:left;margin-left:20px;width:120px;height:120px;">
         <div class="container">
           <div class="navbar-header">
 
@@ -34,16 +33,12 @@
               <span class="icon-bar"></span>
               <span class="icon-bar"></span>
             </button>
-
-            <a class="navbar-brand" href="#/">Let’sMeet Simplifies scheduling</a>
-            <div ng-show="firebaseUser">
-              <p>Hello, {{ firebaseUser.displayName }}</p>
-              <button ng-click="signOut()">Sign Out</button>
-           </div>
-            <div ng-hide="firebaseUser">
-              <p>Welcome, please sign in.</p>
-              <button ng-click="signIn()">Sign In With Google</button>
-            </div>
+              
+              <a class="navbar-brand" href="#/">
+                  <img src="images/logo1.JPG" alt="logo"  />
+                    Let’sMeet Simplifies scheduling
+              </a>
+              
          </div>
 
           <div class="collapse navbar-collapse" id="js-navbar-collapse" >
@@ -54,8 +49,13 @@
               <li ng-class="{ active: isActive('/step3')}"><a ng-href="#/step3">Step 3</a></li>
               <li ng-class="{ active: isActive('/summary')}"><a ng-href="#/summary">Summary</a></li>
               <li ng-class="{ active: isActive('/chooseDates')}"><a ng-href="#/chooseDates">ChooseDates</a></li>
-              
             </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li ng-show="firebaseUser"><a href="#">Hi, {{ firebaseUser.displayName }}</a></li>
+                <li ng-hide="firebaseUser"><a href="#" ng-click="signIn()" ><span class="glyphicon glyphicon-log-in"></span> Login </a></li>
+                <li ng-show="firebaseUser"><a href="#" ng-click="signOut()"><span class="glyphicon glyphicon-log-out"></span> Logout </a></li>
+            </ul>
+
           </div>
         </div>
       </div>
