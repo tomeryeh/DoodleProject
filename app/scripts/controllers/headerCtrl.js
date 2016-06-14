@@ -8,7 +8,7 @@
  * Controller of the doodleApp
  */
 angular.module('doodleApp')
-  .controller('HeaderController', function ($scope, $location,Auth,loginUser) { 
+  .controller('HeaderController', function ($scope, $location, Auth, loginUser, localStorageService,$firebaseObject) {
 
 	$scope.auth = Auth;
 
@@ -50,12 +50,21 @@ angular.module('doodleApp')
     $scope.auth.$onAuthStateChanged(function(firebaseUser) {
       $scope.firebaseUser = firebaseUser;
 
-	  loginUser = $scope.firebaseUser;
-
        if (firebaseUser) {
-   		 console.log("Signed in as:", firebaseUser.uid);
+           console.log("Signed in as:", firebaseUser.uid);
+
+           var ref = firebase.database().ref();
+
+           var obj = $firebaseObject(ref.child('meetings').child(firebaseUser.uid).child('data'));
+
+           obj.$loaded().then(function () {
+               localStorageService.set('meeting', obj);
+           });
+
+
   		} else {
-  			 $location.path('/');
+           $location.path('/');
+           localStorageService.remove('meeting');
     		console.log("Signed out");
   		}
     });

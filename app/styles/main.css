@@ -1,3 +1,13 @@
+.navbar-brand {
+  padding: 0px;
+}
+.navbar-brand>img {
+  height: 100%;
+  padding-right: 10px;
+  width: auto;
+}
+
+
 .browsehappy {
   margin: 0.2em 0;
   background: #ccc;
