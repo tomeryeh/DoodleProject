@@ -52,7 +52,7 @@ var app = angular
       })
       .when('/chooseDates', {
         templateUrl: 'views/chooseDates.html',
-        controller: 'FormCtrl'
+        controller: 'ChooseDatesCtrl'
       })
       .when('/login', {
             templateUrl: 'views/login.html',
