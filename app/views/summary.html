@@ -15,8 +15,12 @@
 		<li ng-repeat="date in meeting.dates">{{date.dateCh}} / {{date.hourCh}} / {{date.howLongCh}}</li>
 	</ul>
 	</p>
-	<p><button type="button" class="btn btn-success" ng-click="saveMeeting()">Save meeting and get URL</button></p>
-	<div ng-show="url" class="row"><p>Send this url to your paticipants for selecting the time :</p></div>
+	<p><button type="button" class="btn btn-success" ng-click="saveMeeting()">Save Meeting</button></p>
+	<div ng-show="url" class="row">
+	<p>We created a link for your paticipant to choose their dates.</p>
+	<p>The url was sent in mail to each participant.</p>
+	<p>You can also send the url to them by yourself :</p>
+	</div>
 	<div ng-show="url" class="row"><p>{{ url }}</p></div>
 	
 </div>

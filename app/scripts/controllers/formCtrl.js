@@ -50,6 +50,8 @@ angular.module('doodleApp')
       var urlAfterSplit = $location.absUrl().split('/');
       urlAfterSplit[urlAfterSplit.length - 1] = 'chooseDates';
       $scope.url = urlAfterSplit.join('/') + "?event=" + currentUser.uid;
+
+      $scope.sendEmail();
     }
 
 // Step 3
@@ -127,12 +129,17 @@ angular.module('doodleApp')
 
 
   $scope.sendEmail = function(){
-    emailjs.send("gmail","template_ybWM6OV9",{
-      to_name: "James", 
-      notes: "Check this out!",
-      to_email :"tomer.yeh@gmail.com",
-      from_name :"hadar"
-    });
+
+    for (var i = $scope.meeting.participants.length - 1; i >= 0; i--) {
+      emailjs.send("gmail","template_ybWM6OV9",{
+          to_name: $scope.meeting.participants[i].name,
+          url: $scope.url,
+          to_email :$scope.meeting.participants[i].email,
+          from_name :$scope.meeting.name,
+          event : $scope.meeting.topic,
+          message_html : $scope.meeting.description
+        });     
+    }
   }
 
   $scope.init();
