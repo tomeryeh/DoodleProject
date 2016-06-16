@@ -2,7 +2,8 @@
 
 app.controller('ChooseDatesCtrl', function ($scope, $firebaseObject, $location) {
 
-    $scope.init = function() {
+    $scope.init = function () {
+        $scope.afterSave = false;
         var queryString = $location.search();
         var eventId = queryString.event;
 
@@ -28,6 +29,7 @@ app.controller('ChooseDatesCtrl', function ($scope, $firebaseObject, $location) 
     	}
         $scope.DBData.dates = $scope.dates;
         $scope.DBData.$save();
+        $scope.afterSave = true;
     };
 
     $scope.init();

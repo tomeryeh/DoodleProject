@@ -67,12 +67,13 @@ angular.module('doodleApp')
 
                
            });
-        
-
   		} else {
-           $location.path('/');
+           if ($location.path() != '/chooseDates') {
+               $location.path('/');
+           }
+           
            localStorageService.remove('meeting');
-    		console.log("Signed out");
+    	   console.log("Signed out");
   		}
     });
 });
