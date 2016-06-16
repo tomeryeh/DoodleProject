@@ -29,7 +29,7 @@ angular.module('doodleApp')
               // The signed-in user info.
               var user = result.user;
               // if ($location.path() != 'chooseDates'){
-              //   $location.path('/step1');
+              $location.path('/step1');
               // }
           }).catch(function (error) {
               // Handle Errors here.
@@ -50,7 +50,7 @@ angular.module('doodleApp')
 
     // any time auth state changes, add the user data to scope
     $scope.auth.$onAuthStateChanged(function(firebaseUser) {
-      $scope.firebaseUser = firebaseUser;
+        $scope.firebaseUser = firebaseUser;
 
        if (firebaseUser) {
            console.log("Signed in as:", firebaseUser.uid);
@@ -60,9 +60,14 @@ angular.module('doodleApp')
            var obj = $firebaseObject(ref.child('meetings').child(firebaseUser.uid).child('data'));
 
            obj.$loaded().then(function () {
-               localStorageService.set('meeting', obj);
-           });
+               if (obj.topic != null){
+                localStorageService.set('meeting', obj);
+                $location.path('/result');
+               }
 
+               
+           });
+        
 
   		} else {
            $location.path('/');

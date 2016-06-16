@@ -1,7 +1,8 @@
 <div class="container" >
 	<h3>Summary</h3>
 	<p><label>Event topic : {{ meeting.topic }}</label></br></p>
-	<p><label>Participants : </label>
+	<p><label>Minimum participant  : {{ meeting.minPart }}</label></br></p>
+	<p><label>Invited participants : </label>
 	<ul>
 		<li ng-repeat="part in meeting.participants">{{ part.name }}</li>
 	</ul>

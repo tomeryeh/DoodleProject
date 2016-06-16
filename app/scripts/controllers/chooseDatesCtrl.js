@@ -18,19 +18,24 @@ app.controller('ChooseDatesCtrl', function ($scope, $firebaseObject, $location,A
     $scope.auth.$onAuthStateChanged(function(firebaseUser) {
       $scope.firebaseUser = firebaseUser;
 
+    if(firebaseUser){
+      $location.path('/result');
+    };
+
     });
 
-    $scope.savePick = function(){
-		var curUserName = $scope.firebaseUser.displayName;
+    $scope.savePick = function() {
+		var curUserName = $scope.chooseDateEmail;// $scope.firebaseUser.displayName+'|'+$scope.firebaseUser.email;
     	for (var i = $scope.dates.length - 1; i >= 0; i--) {
     		if ($scope.dates[i].isMark){
     			$scope.dates[i].names = $scope.dates[i].names || [];
     			$scope.dates[i].isMark = false;
                 $scope.dates[i].names.push(curUserName);
     		}else{
-                if($scope.dates[i].names.length > 0){
-                    $scope.dates[i].names =[];
-                }
+                $scope.dates[i].names = $scope.dates[i].names || [];
+                // if($scope.dates[i].names.length > 0){
+                //     $scope.dates[i].names =[];
+                // }
             }
     	}
         $scope.DBData.dates = $scope.dates;

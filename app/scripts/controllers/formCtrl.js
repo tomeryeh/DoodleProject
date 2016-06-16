@@ -19,6 +19,7 @@ angular.module('doodleApp')
    //var todosInStore = localStorageService.get('todos');
    // $scope.todos = todosInStore || [];
 
+
     $scope.init = function()
     {
         $scope.meeting = localStorageService.get('meeting');
@@ -26,14 +27,14 @@ angular.module('doodleApp')
         $scope.$watch('meeting', function () {
             localStorageService.set('meeting', $scope.meeting);
         }, true);
-        //$scope.meeting = wizardData;
 
-      // var ref = firebase.database().ref().child("meeting");
-      // // download the data into a local object
-      // var syncObject = $firebaseObject(ref);
-      // // synchronize the object with a three-way data binding
-      // // click on `index.html` above to see it used in the DOM!
-      // syncObject.$bindTo($scope, "meeting");
+      // var currentUser = Auth.$getAuth();
+      // var ref = firebase.database().ref('meetings/'+ currentUser.uid);
+      // var obj = $firebaseObject(ref);
+
+      // obj.$loaded().then(function () {
+      //   $location.path('/results');
+      // });
 
     };
     
@@ -55,7 +56,8 @@ angular.module('doodleApp')
     $scope.addParticipant = function(){
     	var paticipant = {
         name : $scope.paticipantName,
-        email : $scope.paticipantEmail
+        email : $scope.paticipantEmail,
+        vip : $scope.paticipantVip
       };
 
       $scope.meeting.participants = $scope.meeting.participants || [];
@@ -86,6 +88,45 @@ angular.module('doodleApp')
       $scope.meeting.dates.splice(index,1);
     };
       
+  // result page
+  $scope.calcResult = function(){
+    var vipUsers = [];
+    
+    for (var i = $scope.meeting.participants.length - 1; i >= 0; i--) {
+      if ($scope.meeting.participants[i].vip = true){
+        var email = $scope.meeting.participants[i].email;
+        vipUsers.push(email);
+      }
+    }
+
+    var idealDateIndex = 0;
+
+    for (var i = $scope.meeting.dates.length - 1; i >= 0; i--) {
+
+      $scope.meeting.dates[i].allVips = 0;
+      $scope.meeting.dates[i].vipCounter = 0; 
+      $scope.meeting.dates[i].partCounter = $scope.meeting.dates[i].names.length;
+      $scope.meeting.dates[i].passMinPart = (($scope.meeting.dates[i].partCounter >= $scope.meeting.minPart) ? 1 : 0);
+
+      for (var l = $scope.meeting.dates[i].names.length - 1; l >= 0; l--) {
+        var nameFromDate = $scope.meeting.dates[i].names[l].split('|')[1];
+        if ( vipUsers.indexOf(nameFromDate) != -1 ){
+          $scope.meeting.dates[i].vipCounter++; 
+        }
+      }
+
+      if ($scope.meeting.dates[i].vipCounter == vipUsers.length){
+        $scope.meeting.dates[i].allVips = 1;
+      }
+
+
+    }    
+
+    
+
+  };
+
+
   $scope.sendEmail = function(){
     emailjs.send("gmail","template_ybWM6OV9",{
       to_name: "James", 

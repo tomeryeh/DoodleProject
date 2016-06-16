@@ -2,10 +2,17 @@
 	<h4>Select participants</h4>
   
   <form role="form" ng-submit="addParticipant()">
+    <div class="form-group">
+      <div class="input-group">
+        <label for="minPart" class="control-label">Minimum Participnats</label>
+        <input type="number" id="minPart"  class="form-contorl" ng-model="meeting.minPart" name="">
+      </div>
+    </div>
     <div class="row">
       <div class="input-group">
         <input type="text" placeholder="Name" ng-model="paticipantName" class="form-contorl" >
         <input type="text" placeholder="Email" ng-model="paticipantEmail" class="form-contorl" >
+        <input type="checkbox" placeholder="Vip" ng-model="paticipantVip" class="form-contorl" >
           <span class="input-group-btn">
             <input type="submit" class="btn btn-primary" value="Add">
           </span>
@@ -17,7 +24,7 @@
 
   <div ui-sortable ng-model="meeting.participants">
     <p class="input-group" ng-repeat="participantItem in meeting.participants" style="padding:5px 10px;cursor:move;">
-      <input class="form-control" value="{{ participantItem.name }} - {{ participantItem.email }}" disabled="true"></label>
+      <input class="form-control" value="{{ participantItem.name }} - {{ participantItem.email }} {{ participantItem.vip ? '- Vip' : '' }}" disabled="true"></label>
       <span class="input-group-btn">
         <button class="btn btn-danger" ng-click="removeParticipant($index)" aria-label="Remove">X</button>    
       </span>

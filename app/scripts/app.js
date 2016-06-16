@@ -50,6 +50,10 @@ var app = angular
         templateUrl: 'views/summary.html',
         controller: 'FormCtrl'
       })
+      .when('/result', {
+        templateUrl: 'views/result.html',
+        controller: 'FormCtrl'
+      })
       .when('/chooseDates', {
         templateUrl: 'views/chooseDates.html',
         controller: 'ChooseDatesCtrl'
