@@ -1,9 +1,9 @@
 <div class="container">
 	<form role="form">
         <div class="form-group">
-          <label for="email" class="control-label">E-mail address</label>
+          <label for="email" class="control-label">Please enter your email address</label>
           <input type="text" ng-model="chooseDateEmail" class="form-control" 
-          id="email" placeholder="Please enter your email address">
+          id="email" placeholder="letsmeet@gmail.com">
         </div>
     </form>
     <h3>Choose the dates you can attend</h3>
@@ -25,6 +25,8 @@
         </tr>
     </tbody>
 	</table>
-    <p><button type="button" ng-click="savePick()" class="btn btn-success">Submit</button></p>
-    <p class="success" ng-show="afterSave">Thank you for choosing the date. The event owner will update you on the final date.</p>
+    <p><button type="button" ng-click="savePick()" class="btn btn-info">Submit</button></p>
+    <p>
+        <h3><span class="label label-success" ng-show="afterSave">Thank you for choosing the date. The event owner will update you on the final date.</span></h3>
+    </p>
 </div>

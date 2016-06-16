@@ -8,7 +8,7 @@
  * Controller of the doodleApp
  */
 angular.module('doodleApp')
-  .controller('FormCtrl', function ($scope,localStorageService,$firebaseObject,Auth,$location) {
+  .controller('FormCtrl', function ($scope,localStorageService,$firebaseObject,Auth,$location,$filter) {
   	
     $scope.datepickerOptions  = {
       initDate : new Date(),
@@ -71,11 +71,13 @@ angular.module('doodleApp')
     };
 
 // Step 2
-    $scope.addDate = function(){
-      var newDate = 
+    $scope.addDate = function () {
+      var shortHour = $filter('date')($scope.startTime, 'HH:mm')
+
+      var newDate =
       {
         dateCh : $scope.datepicker.toLocaleDateString(),
-        hourCh : $scope.startTime.toLocaleTimeString(),
+        hourCh: shortHour,
         howLongCh : $scope.howLong,
         names:[],
         isMark : false
