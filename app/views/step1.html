@@ -3,27 +3,25 @@
   <hr/>
   <form role="form" >
     <div class="form-group">
-      <label for="topic" class="control-label">Topic</label>
-        <input type="text" ng-model="meeting.topic" class="form-control" id="topic" placeholder="Set the meeting target">
+        <label for="topic" class="control-label">Topic</label>
+        <input type="text" ng-model="meeting.topic" class="form-control" id="topic" placeholder="Set the meeting target" >
+        <!--<span class="" ng-show="meeting.topic.$touched && meeting.topic.$invalid">Required field</span>-->
     </div>
     <div class="form-group">
-      <label for="location" class="control-label">Where (optional)</label>
-      <input type="text" ng-model="meeting.where" class="form-control" id="location" placeholder="Set the location">
+        <label for="location" class="control-label">Where (optional)</label>
+        <input type="text" ng-model="meeting.where" class="form-control" id="location" placeholder="Set the location">
     </div>
     <div class="form-group">
-      <label for="description" class="control-label">Description (optional)</label>
-      <input type="text" ng-model="meeting.description" class="form-control" 
-      id="description" placeholder="Tell the participants about the meeting">
+        <label for="description" class="control-label">Description (optional)</label>
+        <input type="text" ng-model="meeting.description" class="form-control" id="description" placeholder="Tell the participants about the meeting">
     </div>
     <div class="form-group">
-      <label for="name" class="control-label">Your Name</label>
-      <input type="text" ng-model="meeting.name" class="form-control" 
-      id="name" placeholder="Your name">
+        <label for="name" class="control-label">Your Name</label>
+        <input type="text" ng-model="meeting.name" class="form-control" id="name" placeholder="Your name">
     </div>
     <div class="form-group">
-      <label for="email" class="control-label">E-mail address</label>
-      <input type="text" ng-model="meeting.email" class="form-control" 
-      id="email" placeholder="letsmeet@gmail.com">
+        <label for="email" class="control-label">E-mail address</label>
+        <input type="text" ng-model="meeting.email" class="form-control" id="email" placeholder="letsmeet@gmail.com">
     </div>
     
     <!--<input type="button" ng-click="sendEmail()" value="Send Email" name="">-->

@@ -2,25 +2,27 @@
     <h2>Select paricipants </h2>
     <hr />
   
-  <form role="form" ng-submit="addParticipant()">
-    <div class="form-group">
-      <div class="input-group">
-        <label for="minPart" class="control-label">Minimum Participnats</label>
-        <input type="number" id="minPart"  class="form-contorl" ng-model="meeting.minPart" name="">
-      </div>
-    </div>
-    <div class="row">
-      <div class="input-group">
-        <input type="text" placeholder="Name" ng-model="paticipantName" class="form-contorl" >
-        <input type="text" placeholder="Email" ng-model="paticipantEmail" class="form-contorl" >
-        <input type="checkbox" placeholder="Vip" ng-model="paticipantVip" class="form-contorl" >
-          <span class="input-group-btn">
+    <form role="form" ng-submit="addParticipant()">
+        <div class="form-group">
+            <label for="minPart" class="control-label">Minimum Participnats</label>
+            <input type="number" id="minPart" class="form-control" ng-model="meeting.minPart" name="">
+        </div>
+        <div class="form-group">
+            <label for="partName" class="control-label">Name</label>
+            <input type="text" id="partName" placeholder="Name" ng-model="paticipantName" class="form-control">
+        </div>
+        <div class="form-group">
+            <label for="partEmail" class="control-label">Email</label>
+            <input type="text" id="partEmail" placeholder="letsmeet@gmail.com" ng-model="paticipantEmail" class="form-control">
+        </div>
+        <div class="form-group">
+            <label for="partId" class="control-label">Is Vip ?</label>
+            <input type="checkbox" id="partId" ng-model="paticipantVip" class="form-control">
+        </div>
+        <span class="input-group-btn">
             <input type="submit" class="btn btn-primary" value="Add">
-          </span>
-        </input>
-      </div>
-    </div>
-  </form>
+        </span>
+    </form>
 
 
   <div ui-sortable ng-model="meeting.participants">
