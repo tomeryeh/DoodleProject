@@ -95,7 +95,7 @@ angular.module('doodleApp')
     var vipUsers = [];
     
     for (var i = $scope.meeting.participants.length - 1; i >= 0; i--) {
-      if ($scope.meeting.participants[i].vip = true){
+      if ($scope.meeting.participants[i].vip == true){
         var email = $scope.meeting.participants[i].email;
         vipUsers.push(email);
       }
@@ -107,25 +107,22 @@ angular.module('doodleApp')
 
       $scope.meeting.dates[i].allVips = 0;
       $scope.meeting.dates[i].vipCounter = 0; 
-      $scope.meeting.dates[i].partCounter = $scope.meeting.dates[i].names.length;
+      $scope.meeting.dates[i].partCounter = $scope.meeting.dates[i].names ? $scope.meeting.dates[i].names.length : 0;
       $scope.meeting.dates[i].passMinPart = (($scope.meeting.dates[i].partCounter >= $scope.meeting.minPart) ? 1 : 0);
 
-      for (var l = $scope.meeting.dates[i].names.length - 1; l >= 0; l--) {
-        var nameFromDate = $scope.meeting.dates[i].names[l].split('|')[1];
-        if ( vipUsers.indexOf(nameFromDate) != -1 ){
-          $scope.meeting.dates[i].vipCounter++; 
+      if($scope.meeting.dates[i].names){
+        for (var l = $scope.meeting.dates[i].names.length - 1; l >= 0; l--) {
+          var nameFromDate = $scope.meeting.dates[i].names[l];
+          if ( vipUsers.indexOf(nameFromDate) != -1 ){
+            $scope.meeting.dates[i].vipCounter++; 
+          }
+        }
+
+        if ($scope.meeting.dates[i].vipCounter == vipUsers.length){
+          $scope.meeting.dates[i].allVips = 1;
         }
       }
-
-      if ($scope.meeting.dates[i].vipCounter == vipUsers.length){
-        $scope.meeting.dates[i].allVips = 1;
-      }
-
-
     }    
-
-    
-
   };
 
 
