@@ -6,7 +6,7 @@
   	Green rows are a prefect match for the date (all vips + pass min paricipants).
   	</p>
   	<p><button class="btn btn-success" ng-click="calcResult()">Calculate results</button></p>
-  <table class="table">
+  <table class="table" ng-show="afterCalc">
     <thead>
       <tr>
         <th>Date</th>
@@ -17,11 +17,17 @@
       </tr>
     </thead>
     <tbody>
-      <tr ng-repeat="resDate in meeting.dates |orderBy:['passMinPart','allVips','vipCounter','partCounter']:true" 
+      <tr ng-repeat="resDate in meeting.dates | orderBy:['passMinPart','allVips','vipCounter','partCounter']:true" 
 		ng-class="{'success': resDate.passMinPart && resDate.allVips }">
         <td>{{resDate.dateCh}}</td>
-        <td> <span ng-show="{{resDate.passMinPart == 1}}" class="glyphicon glyphicon-ok"/><span ng-show="{{resDate.passMinPart == 0}}" class="glyphicon glyphicon-remove"/> </td>
-        <td> <span ng-show="{{resDate.allVips == 1}}" class="glyphicon glyphicon-ok"/><span ng-show="{{resDate.allVips == 0}}" class="glyphicon glyphicon-remove"/></td>
+        <td> 
+          <span ng-show="resDate.passMinPart == 1" class="glyphicon glyphicon-ok"></span>
+          <span ng-show="resDate.passMinPart == 0" class="glyphicon glyphicon-remove"></span> 
+        </td>
+        <td> 
+          <span ng-show="resDate.allVips == 1" class="glyphicon glyphicon-ok"></span>
+          <span ng-show="resDate.allVips == 0" class="glyphicon glyphicon-remove"/></span>
+        </td>
         <td>{{resDate.vipCounter}}</td>
         <td>{{resDate.partCounter}}</td>
       </tr>

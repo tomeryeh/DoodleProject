@@ -101,8 +101,6 @@ angular.module('doodleApp')
       }
     }
 
-    var idealDateIndex = 0;
-
     for (var i = $scope.meeting.dates.length - 1; i >= 0; i--) {
 
       $scope.meeting.dates[i].allVips = 0;
@@ -122,7 +120,9 @@ angular.module('doodleApp')
           $scope.meeting.dates[i].allVips = 1;
         }
       }
-    }    
+    }
+
+    $scope.afterCalc = true;    
   };
 
 
