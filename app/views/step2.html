@@ -9,17 +9,24 @@
           <label for="date" class="control-label">Date</label>
           <pre>Selected date is: <em>{{datepicker | date:'fullDate' }}</em></pre>
 
-          <div style="display:inline-block; min-height:290px;">
-            <uib-datepicker id="date" ng-model="datepicker" class="well well-sm" datepicker-options="datepickerOptions"></uib-datepicker>
+          <div class="well well-sm">
+            <uib-datepicker id="date" ng-model="datepicker" datepicker-options="datepickerOptions"></uib-datepicker>
           </div>
         </div>
 
         <div class="form-group">
           <label for="beginHour" class="control-label">Metting start at </label>
-          <uib-timepicker id="beginHour" ng-model="startTime" ng-change="changed()"  ></uib-timepicker>
-          <label class="contorl-label" > For </label>
-          <input type="number" name="" ng-model="howLong"></input>
-          <label class="contorl-label" > hours </label>
+          <div class="well well-sm">
+            <uib-timepicker id="beginHour" ng-model="startTime" ng-change="changed()"  ></uib-timepicker>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="sr-only" for="exampleInputAmount">Amount (in dollars)</label>
+          <div class="input-group">
+            <div class="input-group-addon">For</div>
+            <input type="number" name="" ng-model="howLong" class="form-control" >
+            <div class="input-group-addon">hours</div>
+          </div>
         </div>
 
         <div class="form-group">
@@ -30,15 +37,17 @@
     </div>
     
     <div class="col-sm-6">
-      <label  class="control-label">Date List</label>
-      <div ui-sortable ng-model="meeting.dates">
-        <p class="input-group" ng-repeat="dateItem in meeting.dates" style="padding:5px 10px;cursor:move;">
-          <input class="form-control" value="{{dateItem.dateCh}} - {{dateItem.hourCh}} - for {{dateItem.howLongCh}} hours" type="text"> 
-          <span class="input-group-btn">
-            <button class="btn btn-danger" ng-click="removeDate($index)" aria-label="Remove">X</button>    
-          </span>
-        </p>
-      </div>
+      
+      <div class="panel panel-default">
+        <div class="panel-heading">Dates</div>
+        <div class="panel-body">
+              <ul ui-sortable ng-model="meeting.dates" class="list-group">
+                <li class="list-group-item" ng-repeat="dateItem in meeting.dates" style="cursor:move">
+                  {{dateItem.dateCh}} - {{dateItem.hourCh}} - for {{dateItem.howLongCh}} hours
+                  <a ng-click="removeDate($index)" href="" class="badge" style="color:white"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a>
+                </li>
+              </ul>
+        </div>
     </div>
       
   </div>

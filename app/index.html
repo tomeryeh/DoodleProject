@@ -24,7 +24,7 @@
     <!-- Add your site or application content here -->
     <div class="header" ng-controller="HeaderController">
       <div class="navbar navbar-default" role="navigation">
-        <div class="container">
+        <div class="container-fluid">
           <div class="navbar-header">
 
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#js-navbar-collapse">
@@ -53,9 +53,17 @@
 
             </ul>
             <ul class="nav navbar-nav navbar-right">
-                <li ng-show="firebaseUser"><a href="#">Hi, {{ firebaseUser.displayName }}</a></li>
-                <li ng-hide="firebaseUser"><a href="" ng-click="signIn()" ><span class="glyphicon glyphicon-log-in"></span> Login </a></li>
-                <li ng-show="firebaseUser"><a href="" ng-click="signOut()"><span class="glyphicon glyphicon-log-out"></span> Logout </a></li>
+                <li class="dropdown" ng-show="firebaseUser">
+                <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                  {{ firebaseUser.displayName }} <span class="caret"></span>
+                </a>
+                <ul class="dropdown-menu">
+                  <li><a href="" ng-click="signOut()"><span class="glyphicon glyphicon-log-out"></span> Logout </a></li>
+                </ul>
+              </li>
+
+              <li ng-hide="firebaseUser"><a href="" ng-click="signIn()" ><span class="glyphicon glyphicon-log-in"></span> Login </a></li>
+
             </ul>
 
           </div>

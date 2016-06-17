@@ -93,6 +93,20 @@ angular.module('doodleApp')
     };
       
   // result page
+  $scope.updateData = function(){
+    var firebaseUser = Auth.$getAuth();
+    var ref = firebase.database().ref();
+
+    var obj = $firebaseObject(ref.child('meetings').child(firebaseUser.uid).child('data'));
+
+    obj.$loaded().then(function () {
+      if (obj.topic != null){
+      localStorageService.set('meeting', obj);
+      $scope.meeting = localStorageService.get('meeting');
+      $scope.calcResult();
+    }
+    });
+  };
   $scope.calcResult = function(){
     var vipUsers = [];
     
