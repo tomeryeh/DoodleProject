@@ -16,9 +16,8 @@
         <th>Total paritcipants</th>
       </tr>
     </thead>
-    <tbody>
-      <tr ng-repeat="resDate in meeting.dates | orderBy:['passMinPart','allVips','vipCounter','partCounter']:true" 
-		ng-class="{'success': resDate.passMinPart && resDate.allVips }">
+    <tbody ng-repeat="resDate in meeting.dates | orderBy:['passMinPart','allVips','vipCounter','partCounter']:true" >
+      <tr ng-class="{'success': resDate.passMinPart && resDate.allVips }" class="clickable" data-toggle="collapse" id="{{$index}}" data-target=".{{$index}}collapsed" style="cursor:pointer">
         <td>{{resDate.dateCh}}</td>
         <td> 
           <span ng-show="resDate.passMinPart == 1" class="glyphicon glyphicon-ok"></span>
@@ -30,6 +29,21 @@
         </td>
         <td>{{resDate.vipCounter}}</td>
         <td>{{resDate.partCounter}}</td>
+      </tr>
+      <tr class="collapse out budgets {{$index}}collapsed">
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>
+          <div ng-repeat="v in resDate.vipNames">
+            <span>{{v}}</span><br/>
+          </div>
+        </td>
+        <td>
+          <div ng-repeat="n in resDate.names">
+            <span>{{n}}</span><br/>
+          </div>
+        </td>
       </tr>
     </tbody>
   </table>

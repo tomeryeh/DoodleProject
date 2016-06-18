@@ -123,12 +123,14 @@ angular.module('doodleApp')
       $scope.meeting.dates[i].vipCounter = 0; 
       $scope.meeting.dates[i].partCounter = $scope.meeting.dates[i].names ? $scope.meeting.dates[i].names.length : 0;
       $scope.meeting.dates[i].passMinPart = (($scope.meeting.dates[i].partCounter >= $scope.meeting.minPart) ? 1 : 0);
+      $scope.meeting.dates[i].vipNames = [];
 
       if($scope.meeting.dates[i].names){
         for (var l = $scope.meeting.dates[i].names.length - 1; l >= 0; l--) {
           var nameFromDate = $scope.meeting.dates[i].names[l];
           if ( vipUsers.indexOf(nameFromDate) != -1 ){
             $scope.meeting.dates[i].vipCounter++; 
+            $scope.meeting.dates[i].vipNames.push(nameFromDate);
           }
         }
 
