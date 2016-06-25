@@ -5,50 +5,62 @@
   <p>Here you can see the best date for your meeting. 
   	Green rows are a prefect match for the date (all vips + pass min paricipants).
   	</p>
-  	<p><button class="btn btn-success" ng-click="updateData()">Calculate results</button></p>
-  <table class="table" ng-show="afterCalc">
-    <thead>
-      <tr>
-        <th>Date</th>
-        <th>Passed min paritipants</th>
-        <th>All vips</th>
-        <th>Num of Vips</th>
-        <th>Total paritcipants</th>
-      </tr>
-    </thead>
-    <tbody ng-repeat="resDate in meeting.dates | orderBy:['passMinPart','allVips','vipCounter','partCounter']:true" >
-      <tr ng-class="{'success': resDate.passMinPart && resDate.allVips }" class="clickable" data-toggle="collapse" id="{{$index}}" data-target=".{{$index}}collapsed" style="cursor:pointer">
-        <td>{{resDate.dateCh}}</td>
-        <td> 
-          <span ng-show="resDate.passMinPart == 1" class="glyphicon glyphicon-ok"></span>
-          <span ng-show="resDate.passMinPart == 0" class="glyphicon glyphicon-remove"></span> 
-        </td>
-        <td> 
-          <span ng-show="resDate.allVips == 1" class="glyphicon glyphicon-ok"></span>
-          <span ng-show="resDate.allVips == 0" class="glyphicon glyphicon-remove"/></span>
-        </td>
-        <td>{{resDate.vipCounter}}</td>
-        <td>{{resDate.partCounter}}</td>
-      </tr>
-      <tr class="collapse out budgets {{$index}}collapsed">
-        <td></td>
-        <td></td>
-        <td></td>
-        <td>
-          <div ng-repeat="v in resDate.vipNames">
-            <span>{{v}}</span><br/>
-          </div>
-        </td>
-        <td>
-          <div ng-repeat="n in resDate.names">
-            <span>{{n}}</span><br/>
-          </div>
-        </td>
-      </tr>
-    </tbody>
-  </table>
+  	<p>
+      <button class="btn btn-success" ng-click="updateData()">Calculate results</button>
+      <button class="btn btn-danger" ng-click="removeMeeting()">Delete meeting</button>
+    </p>
+  
+    <div ng-show="afterCalc">
 
-<table>
-	<!-- <div ng-repeat="resDate in meeting.dates | orderBy:['passMinPart','allVips','vipCounter','partCounter']">{{resDate.dateCh}}-{{resDate.passMinPart}}-{{resDate.allVips}}-{{resDate.vipCounter}}-{{resDate.partCounter}}</div> -->
+      <p>
+        {{partPick}} of your {{totalPart}} participants choosed a date.
+      </p>
+
+      <table class="table" >
+        <thead>
+          <tr>
+            <th>Final Pick</th>
+            <th>Date</th>
+            <th>Passed min paritipants</th>
+            <th>All vips</th>
+            <th>Num of Vips</th>
+            <th>Total paritcipants</th>
+          </tr>
+        </thead>
+        <tbody ng-repeat="resDate in meeting.dates  | orderBy:['passMinPart','allVips','vipCounter','partCounter']:true" >
+          <tr ng-class="{'success': resDate.passMinPart && resDate.allVips }" class="clickable" data-toggle="collapse" id="{{$index}}" data-target=".{{$index}}collapsed" style="cursor:pointer">
+            <td><input ng-click="enableSend()" type="radio" name="pickDate" value="{{resDate.dateCh}} - {{resDate.hourCh}}"/></td>
+            <td>{{resDate.dateCh}} - {{resDate.hourCh}}</td>
+            <td> 
+              <span ng-show="resDate.passMinPart == 1" class="glyphicon glyphicon-ok"></span>
+              <span ng-show="resDate.passMinPart == 0" class="glyphicon glyphicon-remove"></span> 
+            </td>
+            <td> 
+              <span ng-show="resDate.allVips == 1" class="glyphicon glyphicon-ok"></span>
+              <span ng-show="resDate.allVips == 0" class="glyphicon glyphicon-remove"/></span>
+            </td>
+            <td>{{resDate.vipCounter}}</td>
+            <td>{{resDate.partCounter}}</td>
+          </tr>
+          <tr class="collapse out budgets {{$index}}collapsed">
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>
+              <div ng-repeat="v in resDate.vipNames track by $index">
+                <span>{{v}}</span><br/>
+              </div>
+            </td>
+            <td>
+              <div ng-repeat="n in resDate.names track by $index">
+                <span>{{n}}</span><br/>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <p>After selecting the best date you can send the result to all participants</p>
+    <p><button id='sendResultsBtn' class="btn btn-success" ng-click="sendResultEmail()" disabled>Send results</button></p>
+    </div>
 
 </div>

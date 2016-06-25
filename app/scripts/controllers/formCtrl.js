@@ -8,17 +8,13 @@
  * Controller of the doodleApp
  */
 angular.module('doodleApp')
-  .controller('FormCtrl', function ($scope,localStorageService,$firebaseObject,Auth,$location,$filter) {
+  .controller('FormCtrl', function ($scope,localStorageService,$firebaseObject,Auth,$location,$filter,meetingsCounter) {
   	
     $scope.datepickerOptions  = {
       initDate : new Date(),
       minDate : new Date(),
       showWeeks : false
     };
-
-   //var todosInStore = localStorageService.get('todos');
-   // $scope.todos = todosInStore || [];
-
 
     $scope.init = function()
     {
@@ -28,16 +24,22 @@ angular.module('doodleApp')
             localStorageService.set('meeting', $scope.meeting);
         }, true);
 
-      // var currentUser = Auth.$getAuth();
-      // var ref = firebase.database().ref('meetings/'+ currentUser.uid);
-      // var obj = $firebaseObject(ref);
-
-      // obj.$loaded().then(function () {
-      //   $location.path('/results');
-      // });
 
     };
     
+    $scope.removeMeeting = function(){
+      var currentUser = Auth.$getAuth();
+      var ref = firebase.database().ref('meetings/'+ currentUser.uid);
+      var obj = $firebaseObject(ref);
+      obj.$remove().then(function(ref) {
+        // data has been deleted locally and in the database
+      }, function(error) {
+        console.log("Error:", error);
+      });
+      localStorageService.set('meeting', null)
+      $location.path('/step1')
+    };
+
 
     $scope.saveMeeting = function(){
       var currentUser = Auth.$getAuth();
@@ -46,6 +48,13 @@ angular.module('doodleApp')
       var obj = $firebaseObject(ref);
       obj.data = $scope.meeting;
       obj.$save();
+
+      var refCounter = firebase.database().ref();
+      var objCounter = $firebaseObject(refCounter.child('meetings').child('counter'));
+           objCounter.$loaded().then( function() {
+              objCounter.$value = objCounter.$value + 1;
+              objCounter.$save();
+           })
 
       var urlAfterSplit = $location.absUrl().split('/');
       urlAfterSplit[urlAfterSplit.length - 1] = 'chooseDates';
@@ -59,7 +68,8 @@ angular.module('doodleApp')
     	var paticipant = {
         name : $scope.paticipantName,
         email : $scope.paticipantEmail,
-        vip : $scope.paticipantVip
+        vip : $scope.paticipantVip,
+        pick : false
       };
 
       $scope.meeting.participants = $scope.meeting.participants || [];
@@ -107,13 +117,20 @@ angular.module('doodleApp')
     }
     });
   };
+
   $scope.calcResult = function(){
     var vipUsers = [];
     
+    $scope.totalPart = $scope.meeting.participants.length;
+    $scope.partPick = 0;
+
     for (var i = $scope.meeting.participants.length - 1; i >= 0; i--) {
       if ($scope.meeting.participants[i].vip == true){
         var email = $scope.meeting.participants[i].email;
         vipUsers.push(email);
+      }
+      if ($scope.meeting.participants[i].pick == true){
+        $scope.partPick++;
       }
     }
 
@@ -140,7 +157,25 @@ angular.module('doodleApp')
       }
     }
 
-    $scope.afterCalc = true;    
+    $scope.afterCalc = true; 
+
+  };
+
+  $scope.enableSend = function(){
+      $('#sendResultsBtn').removeAttr('disabled');
+  };
+
+  $scope.sendResultEmail = function(){
+    var finalDate = $("input:radio[name=pickDate]:checked").val();
+    for (var i = $scope.meeting.participants.length - 1; i >= 0; i--) {
+      
+      emailjs.send("gmail","result",{
+          to_name: $scope.meeting.participants[i].name,
+          to_email :$scope.meeting.participants[i].email,
+          from_name :$scope.meeting.name,
+          message_html : finalDate
+        });     
+    }
   };
 
 

@@ -8,9 +8,20 @@
  * Controller of the doodleApp
  */
 angular.module('doodleApp')
-  .controller('HeaderController', function ($scope, $location, Auth, loginUser, localStorageService,$firebaseObject) {
+  .controller('HeaderController', function ($scope, $location, Auth, loginUser, localStorageService,$firebaseObject,meetingsCounter) {
 
-	$scope.auth = Auth;
+
+  	$scope.auth = Auth;
+
+    $scope.init = function()
+    {
+      var ref = firebase.database().ref();
+      var objCounter = $firebaseObject(ref.child('meetings').child('counter'));
+           objCounter.$loaded().then( function() {
+              meetingsCounter.setCounter(objCounter.$value);
+              $scope.eventCounter = objCounter.$value;
+           })
+    }
 
     $scope.isActive = function (viewLocation) { 
         return viewLocation === $location.path();
@@ -67,6 +78,9 @@ angular.module('doodleApp')
 
                
            });
+
+
+
   		} else {
            if ($location.path() != '/chooseDates') {
                $location.path('/');
@@ -76,5 +90,7 @@ angular.module('doodleApp')
     	   console.log("Signed out");
   		}
     });
+
+    $scope.init();
 });
 

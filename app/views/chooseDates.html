@@ -1,32 +1,39 @@
 <div class="container">
-	<form role="form">
-        <div class="form-group">
-          <label for="email" class="control-label">Please enter your email address</label>
-          <input type="text" ng-model="chooseDateEmail" class="form-control" 
-          id="email" placeholder="letsmeet@gmail.com">
-        </div>
-    </form>
-    <h3>Choose the dates you can attend</h3>
-	<table class="table">
-    <thead>
-    <tr>
-        <th>Date</th>
-        <th>Hour</th>
-        <th>How long in hours</th>
-        <th>Can you attend ?</th>
-    </tr>
-    </thead>
-    <tbody>
-        <tr ng-repeat="date in dates" ng-class="{success: event.done}">
-            <td>{{date.dateCh}}</td>
-            <td>{{date.hourCh}}</td>
-            <td>{{date.howLongCh}}</td>
-            <td><input type="checkbox" ng-model="date.isMark" name=""/></td>
+    <div ng-hide="afterSave">
+    	<form role="form">
+            <div class="form-group">
+              <label for="email" class="control-label">Please enter your email address</label>
+              <input type="text" ng-model="chooseDateEmail" class="form-control" 
+              id="email" placeholder="letsmeet@gmail.com">
+            </div>
+        </form>
+        <h3>Choose the dates you can attend</h3>
+    	<table class="table">
+        <thead>
+        <tr>
+            <th>Date</th>
+            <th>Hour</th>
+            <th>How long in hours</th>
+            <th>Can you attend ?</th>
         </tr>
-    </tbody>
-	</table>
-    <p><button type="button" ng-click="savePick()" class="btn btn-info">Submit</button></p>
-    <p>
-        <h3><span class="label label-success" ng-show="afterSave">Thank you for choosing the date. The event owner will update you on the final date.</span></h3>
-    </p>
+        </thead>
+        <tbody>
+            <tr ng-repeat="date in dates" ng-class="{success: event.done}">
+                <td>{{date.dateCh}}</td>
+                <td>{{date.hourCh}}</td>
+                <td>{{date.howLongCh}}</td>
+                <td><input type="checkbox" ng-model="date.isMark" name=""/></td>
+            </tr>
+        </tbody>
+    	</table>
+        <p><button type="button" ng-click="savePick()" class="btn btn-info">Submit</button></p>
+    </div>
+    <div ng-show="afterSave">
+        <p>
+            <h3><span class="label label-success" >Thank you for choosing the date. The event owner will update you on the final date.</span></h3>
+        </p>
+        <br/>
+        <br/>
+        <br/>
+    </div>
 </div>

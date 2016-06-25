@@ -6,8 +6,22 @@ app.factory('Auth', ["$firebaseAuth",
   }
 ]);
 
-app.factory('wizardData',function(){
-    return {};
+app.service('meetingsCounter',function(){
+    var counter = 0;
+    
+    var setCounter = function(num){
+    	counter = num;
+    }
+
+    var getCounter = function(num){
+    	return counter;
+    }
+
+    return {
+    	setCounter : setCounter,
+    	getCounter : getCounter
+    }
+
 });
 
 app.factory('loginUser',function(){

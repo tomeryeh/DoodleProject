@@ -1,15 +1,15 @@
 ﻿'use strict';
 
-app.controller('ChooseDatesCtrl', function ($scope, $firebaseObject, $location) {
+app.controller('ChooseDatesCtrl', function ($scope, $firebaseObject, $location,$firebaseArray) {
 
     $scope.init = function () {
         $scope.afterSave = false;
         var queryString = $location.search();
-        var eventId = queryString.event;
+        $scope.eventId = queryString.event;
 
         var ref = firebase.database().ref();
 
-        $scope.DBData = $firebaseObject(ref.child('meetings').child(eventId).child('data'));
+        $scope.DBData = $firebaseObject(ref.child('meetings').child($scope.eventId).child('data'));
 
         $scope.DBData.$loaded().then(function () {
             $scope.dates = $scope.DBData.dates;
@@ -17,18 +17,34 @@ app.controller('ChooseDatesCtrl', function ($scope, $firebaseObject, $location) 
     };
     
     $scope.savePick = function() {
-		var curUserName = $scope.chooseDateEmail;
-    	for (var i = $scope.dates.length - 1; i >= 0; i--) {
-    		if ($scope.dates[i].isMark){
-    			$scope.dates[i].names = $scope.dates[i].names || [];
-    			$scope.dates[i].isMark = false;
-                $scope.dates[i].names.push(curUserName);
-    		}else{
-                $scope.dates[i].names = $scope.dates[i].names || [];
+        var dbRef = firebase.database().ref();		
+
+        $scope.DBData = $firebaseObject(dbRef.child('meetings').child($scope.eventId).child('data'));
+
+        $scope.DBData.$loaded().then(function () {
+           $scope.upDatedDates = $scope.DBData.dates;
+            var curUserName = $scope.chooseDateEmail;
+            for (var i = $scope.dates.length - 1; i >= 0; i--) {
+                if ($scope.dates[i].isMark){
+                    $scope.upDatedDates[i].names = $scope.dates[i].names || [];
+                    $scope.upDatedDates[i].isMark = false;
+                    $scope.upDatedDates[i].names.push(curUserName);
+
+                }else{
+                    $scope.upDatedDates[i].names = $scope.dates[i].names || [];
+                }
             }
-    	}
-        $scope.DBData.dates = $scope.dates;
-        $scope.DBData.$save();
+
+            for (var i = $scope.DBData.participants.length - 1; i >= 0; i--) {
+                if ($scope.DBData.participants[i].email == curUserName){
+                    $scope.DBData.participants[i].pick = true;
+                }
+            }
+            $scope.DBData.dates = $scope.upDatedDates;
+            $scope.DBData.$save();
+
+        });
+        
         $scope.afterSave = true;
     };
 
