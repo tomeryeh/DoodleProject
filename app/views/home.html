@@ -1,0 +1,24 @@
+<div class="container">
+    <h2>Let’sMeet simplifies scheduling</h2>
+    <br/>
+    <h4>Find the ideal date for a meeting, quickly and efficiently</h4>
+
+    <hr />
+    <div class="row">
+        <div class="col-sm-6">
+          <div class="panel panel-default">
+            <div class="panel-heading">Choose from active meetings</div>
+            <div class="panel-body">
+                  <ul ng-model="meetings" class="list-group">
+                    <li class="list-group-item" ng-repeat="meeting in meetings" style="cursor:move">
+                      <a ng-click="loadMeeting($index)" href="">Load - {{meeting.topic}}</a>
+                      <!-- <a ng-click="removeDate($index)" href="" class="badge" style="color:white"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a> -->
+                    </li>
+                  </ul>
+            </div>
+        </div>
+    </div>
+    
+    <br/>
+    
+</div>

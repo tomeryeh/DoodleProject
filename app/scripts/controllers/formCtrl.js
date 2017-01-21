@@ -19,6 +19,7 @@ angular.module('doodleApp')
     $scope.init = function()
     {
         $scope.meeting = localStorageService.get('meeting');
+        $scope.meetings = localStorageService.get('meetings');
 
         $scope.$watch('meeting', function () {
             localStorageService.set('meeting', $scope.meeting);
@@ -46,7 +47,14 @@ angular.module('doodleApp')
 
       var ref = firebase.database().ref('meetings/'+ currentUser.uid);
       var obj = $firebaseObject(ref);
-      obj.data = $scope.meeting;
+      
+      if($scope.meeting.id){
+        $scope.meetings[$scope.meeting.id] = $scope.meeting;
+      }else{
+        $scope.meetings[$scope.meetings.length] = $scope.meeting;
+      }
+
+      obj.data = $scope.meetings;
       obj.$save();
 
       var refCounter = firebase.database().ref();

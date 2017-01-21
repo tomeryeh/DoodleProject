@@ -44,6 +44,7 @@
           <div class="collapse navbar-collapse" id="js-navbar-collapse" >
 
             <ul ng-show="firebaseUser" class="nav navbar-nav">
+              <li ng-class="{ active: isActive('/home')}"><a href="#/home">Home</a></li>
               <li ng-class="{ active: isActive('/step1')}"><a href="#/step1">Step 1</a></li>
               <li ng-class="{ active: isActive('/step2')}"><a ng-href="#/step2">Step 2</a></li>
               <li ng-class="{ active: isActive('/step3')}"><a ng-href="#/step3">Step 3</a></li>
@@ -141,6 +142,7 @@
         <script src="scripts/controllers/formCtrl.js"></script>
         <script src="scripts/controllers/headerCtrl.js"></script>
         <script src="scripts/controllers/chooseDatesCtrl.js"></script>
+        <script src="scripts/controllers/homeCtrl.js"></script>
         <!-- endbuild -->
 
         

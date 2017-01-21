@@ -31,6 +31,11 @@ var app = angular
         controller: 'FormCtrl'
         
       })
+      .when('/home', {
+        templateUrl: 'views/home.html',
+        controller: 'HomeCtrl'
+        
+      })
       .when('/step1', {
         templateUrl: 'views/step1.html',
         controller: 'FormCtrl'
