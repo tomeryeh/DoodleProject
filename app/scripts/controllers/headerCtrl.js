@@ -74,7 +74,7 @@ angular.module('doodleApp')
                                
                 
                 localStorageService.set('meetings', obj);
-                $location.path('/result');
+                $location.path('/home');
                
 
                
