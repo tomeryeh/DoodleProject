@@ -6,23 +6,25 @@ app.controller('ChooseDatesCtrl', function ($scope, $firebaseObject, $location,$
         $scope.afterSave = false;
         var queryString = $location.search();
         $scope.eventId = queryString.event;
+        $scope.userId = queryString.user;
 
         var ref = firebase.database().ref();
 
-        $scope.DBData = $firebaseObject(ref.child('meetings').child($scope.eventId).child('data'));
+        $scope.DBData = $firebaseArray(ref.child('meetings').child($scope.userId).child('data'));
+
 
         $scope.DBData.$loaded().then(function () {
-            $scope.dates = $scope.DBData.dates;
+            $scope.dates = $scope.DBData[$scope.eventId].dates;
         });
     };
     
     $scope.savePick = function() {
         var dbRef = firebase.database().ref();		
 
-        $scope.DBData = $firebaseObject(dbRef.child('meetings').child($scope.eventId).child('data'));
+        $scope.DBData = $firebaseArray(dbRef.child('meetings').child($scope.userId).child('data'));
 
         $scope.DBData.$loaded().then(function () {
-           $scope.upDatedDates = $scope.DBData.dates;
+           $scope.upDatedDates = $scope.DBData[$scope.eventId].dates;
             var curUserName = $scope.chooseDateEmail;
             for (var i = $scope.dates.length - 1; i >= 0; i--) {
                 if ($scope.dates[i].isMark){
@@ -35,12 +37,12 @@ app.controller('ChooseDatesCtrl', function ($scope, $firebaseObject, $location,$
                 }
             }
 
-            for (var i = $scope.DBData.participants.length - 1; i >= 0; i--) {
-                if ($scope.DBData.participants[i].email == curUserName){
-                    $scope.DBData.participants[i].pick = true;
+            for (var i = $scope.DBData[$scope.eventId].participants.length - 1; i >= 0; i--) {
+                if ($scope.DBData[$scope.eventId].participants[i].email == curUserName){
+                    $scope.DBData[$scope.eventId].participants[i].pick = true;
                 }
             }
-            $scope.DBData.dates = $scope.upDatedDates;
+            $scope.DBData[$scope.eventId].dates = $scope.upDatedDates;
             $scope.DBData.$save();
 
         });

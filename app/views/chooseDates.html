@@ -1,10 +1,14 @@
 <div class="container">
     <div ng-hide="afterSave">
-    	<form role="form">
+    	<form role="form" name="chooseForm">
             <div class="form-group">
               <label for="email" class="control-label">Please enter your email address</label>
-              <input type="text" ng-model="chooseDateEmail" class="form-control" 
-              id="email" placeholder="letsmeet@gmail.com">
+              <input type="email" ng-model="chooseDateEmail" class="form-control" 
+              id="email" name="email" placeholder="letsmeet@gmail.com" required>
+              <div ng-show="chooseForm.email.$dirty">
+                <span ng-show="chooseForm.email.$error.required" class="alert-danger">Please enter something</span>
+                <span ng-show="chooseForm.email.$error.email" class="alert-danger">Please enter valid email</span>
+              </div>
             </div>
         </form>
         <h3>Choose the dates you can attend</h3>
@@ -26,7 +30,7 @@
             </tr>
         </tbody>
     	</table>
-        <p><button type="button" ng-click="savePick()" class="btn btn-info">Submit</button></p>
+        <p><button ng-disabled="chooseForm.$invalid" type="button" ng-click="savePick()" class="btn btn-info">Submit</button></p>
     </div>
     <div ng-show="afterSave">
         <p>

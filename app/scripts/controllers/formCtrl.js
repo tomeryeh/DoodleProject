@@ -30,15 +30,22 @@ angular.module('doodleApp')
     
     $scope.removeMeeting = function(){
       var currentUser = Auth.$getAuth();
+
+      $scope.meetings.splice($scope.meeting.id,1);
+
       var ref = firebase.database().ref('meetings/'+ currentUser.uid);
       var obj = $firebaseObject(ref);
-      obj.$remove().then(function(ref) {
-        // data has been deleted locally and in the database
-      }, function(error) {
-        console.log("Error:", error);
-      });
-      localStorageService.set('meeting', null)
-      $location.path('/step1')
+
+      obj.data = $scope.meetings;
+      obj.$save();
+      // obj.$remove().then(function(ref) {
+      //   // data has been deleted locally and in the database
+      // }, function(error) {
+      //   console.log("Error:", error);
+      // });
+      localStorageService.set('meeting', null);
+      localStorageService.set('meetings', $scope.meetings);
+      $location.path('/step1');
     };
 
 
@@ -51,11 +58,14 @@ angular.module('doodleApp')
       if($scope.meeting.id){
         $scope.meetings[$scope.meeting.id] = $scope.meeting;
       }else{
+        $scope.meeting.id = $scope.meetings.length;
         $scope.meetings[$scope.meetings.length] = $scope.meeting;
       }
 
       obj.data = $scope.meetings;
       obj.$save();
+
+      localStorageService.set('meetings', $scope.meetings);
 
       var refCounter = firebase.database().ref();
       var objCounter = $firebaseObject(refCounter.child('meetings').child('counter'));
@@ -66,7 +76,7 @@ angular.module('doodleApp')
 
       var urlAfterSplit = $location.absUrl().split('/');
       urlAfterSplit[urlAfterSplit.length - 1] = 'chooseDates';
-      $scope.url = urlAfterSplit.join('/') + "?event=" + currentUser.uid;
+      $scope.url = urlAfterSplit.join('/') + "?user=" + currentUser.uid + "&event=" + $scope.meeting.id;
 
       $scope.sendEmail();
     }
@@ -118,8 +128,8 @@ angular.module('doodleApp')
     var obj = $firebaseObject(ref.child('meetings').child(firebaseUser.uid).child('data'));
 
     obj.$loaded().then(function () {
-      if (obj.topic != null){
-      localStorageService.set('meeting', obj);
+      if (obj){
+      localStorageService.set('meeting', obj[$scope.meeting.id]);
       $scope.meeting = localStorageService.get('meeting');
       $scope.calcResult();
     }
