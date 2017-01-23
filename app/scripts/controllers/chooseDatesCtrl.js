@@ -21,7 +21,7 @@ app.controller('ChooseDatesCtrl', function ($scope, $firebaseObject, $location,$
     $scope.savePick = function() {
         var dbRef = firebase.database().ref();		
 
-        $scope.DBData = $firebaseArray(dbRef.child('meetings').child($scope.userId).child('data'));
+        $scope.DBData = $firebaseObject(dbRef.child('meetings').child($scope.userId).child('data'));
 
         $scope.DBData.$loaded().then(function () {
            $scope.upDatedDates = $scope.DBData[$scope.eventId].dates;
